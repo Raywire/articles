@@ -1,4 +1,6 @@
 [![Build Status](https://travis-ci.org/Raywire/articles.svg?branch=develop)](https://travis-ci.org/Raywire/articles)
+[![Maintainability](https://api.codeclimate.com/v1/badges/53ec8d6000b71e4c1fe3/maintainability)](https://codeclimate.com/github/Raywire/articles/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/53ec8d6000b71e4c1fe3/test_coverage)](https://codeclimate.com/github/Raywire/articles/test_coverage)
 
 ## Title
 Articles

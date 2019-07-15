@@ -2,6 +2,9 @@
 
 namespace Tests\Feature;
 
+use App\Article;
+use App\User;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -14,7 +17,7 @@ class LogoutTest extends TestCase
         $token = $user->generateToken();
         $headers = ['Authorization' => "Bearer $token"];
 
-        $this->json('get', '/api/articles', [], $headers)->assertStatus(200);
+        $this->json('get', '/api/articles', [], $headers)->assertStatus(206);
         $this->json('post', '/api/logout', [], $headers)->assertStatus(200);
 
         $user = User::find($user->id);

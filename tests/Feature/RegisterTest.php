@@ -3,12 +3,12 @@
 namespace Tests\Feature;
 
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\WithoutMiddleware;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class RegisterTest extends TestCase
 {
-    public function testsRegistersSuccessfully()
+    public function testRegistersSuccessfully()
     {
         $payload = [
             'name' => 'John',
@@ -31,18 +31,20 @@ class RegisterTest extends TestCase
             ]);;
     }
 
-    public function testsRequiresPasswordEmailAndName()
+    public function testRequiresPasswordEmailAndName()
     {
         $this->json('post', '/api/register')
-            ->assertStatus(422)
+            ->assertStatus(400)
             ->assertJson([
-                'name' => ['The name field is required.'],
-                'email' => ['The email field is required.'],
-                'password' => ['The password field is required.'],
+                'error' => [
+                    'name' => ['The name field is required.'],
+                    'email' => ['The email field is required.'],
+                    'password' => ['The password field is required.'],
+                ]
             ]);
     }
 
-    public function testsRequirePasswordConfirmation()
+    public function testRequirePasswordConfirmation()
     {
         $payload = [
             'name' => 'John',
@@ -51,9 +53,9 @@ class RegisterTest extends TestCase
         ];
 
         $this->json('post', '/api/register', $payload)
-            ->assertStatus(422)
+            ->assertStatus(400)
             ->assertJson([
-                'password' => ['The password confirmation does not match.'],
+                'error' => ['password' => ['The password confirmation does not match.']],
             ]);
     }
 }

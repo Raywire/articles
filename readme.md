@@ -15,11 +15,16 @@ DB_PASSWORD=your_password
 
 Then install, migrate, seed, and run the server:
 
-```bash
+```php
 composer install
 php artisan migrate
 php artisan db:seed
 php artisan serve
+```
+
+## Running the Tests
+```php
+composer test
 ```
 
 ## API Documentation

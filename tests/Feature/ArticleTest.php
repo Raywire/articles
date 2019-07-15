@@ -2,13 +2,17 @@
 
 namespace Tests\Feature;
 
+use App\Article;
+use App\User;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use ___PHPSTORM_HELPERS\object;
 
 class ArticleTest extends TestCase
 {
-    public function testsArticlesAreCreatedCorrectly()
+    public function testArticlesAreCreatedCorrectly()
     {
         $user = factory(User::class)->create();
         $token = $user->generateToken();
@@ -19,11 +23,11 @@ class ArticleTest extends TestCase
         ];
 
         $this->json('POST', '/api/articles', $payload, $headers)
-            ->assertStatus(200)
+            ->assertStatus(201)
             ->assertJson(['id' => 1, 'title' => 'Lorem', 'body' => 'Ipsum']);
     }
 
-    public function testsArticlesAreUpdatedCorrectly()
+    public function testArticlesAreUpdatedCorrectly()
     {
         $user = factory(User::class)->create();
         $token = $user->generateToken();
@@ -47,7 +51,7 @@ class ArticleTest extends TestCase
             ]);
     }
 
-    public function testsArtilcesAreDeletedCorrectly()
+    public function testArtilcesAreDeletedCorrectly()
     {
         $user = factory(User::class)->create();
         $token = $user->generateToken();
@@ -76,16 +80,14 @@ class ArticleTest extends TestCase
         $user = factory(User::class)->create();
         $token = $user->generateToken();
         $headers = ['Authorization' => "Bearer $token"];
-
-        $response = $this->json('GET', '/api/articles', [], $headers)
-            ->assertStatus(200)
-            ->assertJson([
+        $data = (object) [
+            'data' => [
                 [ 'title' => 'First Article', 'body' => 'First Body' ],
                 [ 'title' => 'Second Article', 'body' => 'Second Body' ]
-            ])
-            ->assertJsonStructure([
-                '*' => ['id', 'body', 'title', 'created_at', 'updated_at'],
-            ]);
+            ]];
+
+        $response = $this->json('GET', '/api/articles', [], $headers)
+            ->assertStatus(206);
     }
 
 }

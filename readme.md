@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/Raywire/articles.svg?branch=develop)](https://travis-ci.org/Raywire/articles)
+
 ## Title
 Articles
 

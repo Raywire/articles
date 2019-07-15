@@ -82,7 +82,6 @@ class Handler extends ExceptionHandler
             ], $statusCode400);
         }
 
-        dd($exception);
         return response()->json([
             'error' => 'Error'
         ], $statusCode500);

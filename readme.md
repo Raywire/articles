@@ -22,6 +22,9 @@ php artisan db:seed
 php artisan serve
 ```
 
+## API Documentation
+View all endpoints on [API Docs](https://documenter.getpostman.com/view/6831940/SVSHtWEL?version=latest).
+
 ## License
 
 The Laravel framework is open-source software licensed under the [MIT license](https://opensource.org/licenses/MIT).

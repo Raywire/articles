@@ -21,7 +21,8 @@ class ArticleController extends Controller
 
     public function index()
     {
-        return Article::paginate();
+        $articles = Article::paginate();
+        return response()->json($articles, 206);
     }
 
     public function show(Article $article)
@@ -32,8 +33,8 @@ class ArticleController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'title' => 'required',
-            'body' => 'required'
+            'title' => 'required|string',
+            'body' => 'required|string'
         ]);
         $article = Article::create($request->all());
 
@@ -42,6 +43,10 @@ class ArticleController extends Controller
 
     public function update(Request $request, Article $article)
     {
+        $this->validate($request, [
+            'title' => 'string',
+            'body' => 'string'
+        ]);
         $article->update($request->all());
 
         return response()->json($article, 200);
